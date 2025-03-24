@@ -19,6 +19,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'alamat',
+        'no_hp',
+        'role',
         'email',
         'password',
     ];
@@ -32,7 +35,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    //one to many
     /**
      * Get the attributes that should be cast.
      *
@@ -44,5 +47,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+
+    }
+    public function periksa_pasien(){
+        
+        return $this->hashMany(Periksa::class, 'id_pasien', 'id');
+    }
+
+    public function periksa_dokter(){
+       return  $this->hashMany(Periksa::class, 'id_dokter', 'id');
     }
 }
